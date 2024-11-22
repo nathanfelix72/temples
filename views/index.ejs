@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temple Records</title>
+    <style>
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            font-size: 10px; /* Reduce the font size of the table */
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 5px; /* Reduce the padding to decrease row height */
+            text-align: center;
+            line-height: 1.2; /* Adjust line height for smaller rows */
+        }
+        th {
+            background-color: #F2F2F2;
+            font-weight: bold;
+        }
+        button {
+            padding: 4px 8px; /* Adjust button size */
+            margin: 2px;
+            font-size: 12px; /* Adjust button font size */
+            cursor: pointer;
+        }
+        input[type="number"] {
+            width: 50px; /* Adjust the width to make it smaller */
+            padding: 1px; /* Reduce the padding */
+            font-size: 12px; /* Adjust the font size */
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Temple Records</h1>
+
+    <!-- Search Bar -->
+    <div style="text-align: center; margin-bottom: 20px;">
+        <form action="/" method="GET">
+            <input type="text" name="search" placeholder="Search by Temple Name" value="<%= search %>">
+            <button type="submit">Search</button>
+            <button type="button" onclick="toggleAdvancedSearch()">Advanced Search</button>
+        </form>
+    </div>
+
+    <!-- Advanced Search Form -->
+    <div id="advanced-search" style="display: none; margin: 20px auto; text-align: center; border: 1px solid #ddd; padding: 20px; width: 50%;">
+        <form action="/" method="GET">
+            <!-- Text-based filters -->
+            <div>
+                <label for="temple_name">Temple Name:</label>
+                <input type="text" id="temple_name" name="temple_name">
+            </div>
+            <div>
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value=""></option>
+                    <option value="dedicated">Dedicated</option>
+                    <option value="construction">Under Construction</option>
+                    <option value="announced">Announced</option>
+                </select>
+            </div>
+            <div>
+                <label for="state">U.S. State:</label>
+                <select id="state" name="state">
+                    <option value=""></option>
+                    <option value="Alabama">Alabama</option>
+                    <option value="Alaska">Alaska</option>
+                    <option value="Arizona">Arizona</option>
+                    <option value="Arkansas">Arkansas</option>
+                    <option value="California">California</option>
+                    <option value="Colorado">Colorado</option>
+                    <option value="Connecticut">Connecticut</option>
+                    <option value="Delaware">Delaware</option>
+                    <option value="Florida">Florida</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Hawaii">Hawaii</option>
+                    <option value="Idaho">Idaho</option>
+                    <option value="Illinois">Illinois</option>
+                    <option value="Indiana">Indiana</option>
+                    <option value="Iowa">Iowa</option>
+                    <option value="Kansas">Kansas</option>
+                    <option value="Kentucky">Kentucky</option>
+                    <option value="Louisiana">Louisiana</option>
+                    <option value="Maine">Maine</option>
+                    <option value="Maryland">Maryland</option>
+                    <option value="Massachusetts">Massachusetts</option>
+                    <option value="Michigan">Michigan</option>
+                    <option value="Minnesota">Minnesota</option>
+                    <option value="Mississippi">Mississippi</option>
+                    <option value="Missouri">Missouri</option>
+                    <option value="Montana">Montana</option>
+                    <option value="Nebraska">Nebraska</option>
+                    <option value="Nevada">Nevada</option>
+                    <option value="New Hampshire">New Hampshire</option>
+                    <option value="New Jersey">New Jersey</option>
+                    <option value="New Mexico">New Mexico</option>
+                    <option value="New York">New York</option>
+                    <option value="North Carolina">North Carolina</option>
+                    <option value="North Dakota">North Dakota</option>
+                    <option value="Ohio">Ohio</option>
+                    <option value="Oklahoma">Oklahoma</option>
+                    <option value="Oregon">Oregon</option>
+                    <option value="Pennsylvania">Pennsylvania</option>
+                    <option value="Rhode Island">Rhode Island</option>
+                    <option value="South Carolina">South Carolina</option>
+                    <option value="South Dakota">South Dakota</option>
+                    <option value="Tennessee">Tennessee</option>
+                    <option value="Texas">Texas</option>
+                    <option value="Utah">Utah</option>
+                    <option value="Vermont">Vermont</option>
+                    <option value="Virginia">Virginia</option>
+                    <option value="Washington">Washington</option>
+                    <option value="West Virginia">West Virginia</option>
+                    <option value="Wisconsin">Wisconsin</option>
+                    <option value="Wyoming">Wyoming</option>
+                </select>
+            </div>
+            <div>
+                <label for="country_name">Country:</label>
+                <select id="country_name" name="country_name">
+                    <option value=""></option>
+                    <option value="Angola">Angola</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="American Samoa">American Samoa</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Belgium">Belgium</option>
+                    <option value="Bolivia">Bolivia</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Cambodia">Cambodia</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Cape Verde">Cape Verde</option>
+                    <option value="Chile">Chile</option>
+                    <option value="China">China</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Costa Rica">Costa Rica</option>
+                    <option value="Côte d'Ivoire">Côte d'Ivoire</option>
+                    <option value="Democratic Republic of the Congo">Democratic Republic of the Congo</option>
+                    <option value="Denmark">Denmark</option>
+                    <option value="Dominican Republic">Dominican Republic</option>
+                    <option value="Ecuador">Ecuador</option>
+                    <option value="El Salvador">El Salvador</option>
+                    <option value="England">England</option>
+                    <option value="Fiji">Fiji</option>
+                    <option value="Finland">Finland</option>
+                    <option value="France">France</option>
+                    <option value="French Polynesia">French Polynesia</option>
+                    <option value="Ghana">Ghana</option>
+                    <option value="Guam">Guam</option>
+                    <option value="Guatemala">Guatemala</option>
+                    <option value="Haiti">Haiti</option>
+                    <option value="Honduras">Honduras</option>
+                    <option value="Hong Kong">Hong Kong</option>
+                    <option value="Hungary">Hungary</option>
+                    <option value="India">India</option>
+                    <option value="Indonesia">Indonesia</option>
+                    <option value="Ireland">Ireland</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Kenya">Kenya</option>
+                    <option value="Kiribati">Kiribati</option>
+                    <option value="Liberia">Liberia</option>
+                    <option value="Madagascar">Madagascar</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="Mongolia">Mongolia</option>
+                    <option value="Mozambique">Mozambique</option>
+                    <option value="Netherlands">Netherlands</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="Nicaragua">Nicaragua</option>
+                    <option value="Norway">Norway</option>
+                    <option value="Panama">Panama</option>
+                    <option value="Paraguay">Paraguay</option>
+                    <option value="Peru">Peru</option>
+                    <option value="Philippines">Philippines</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Puerto Rico">Puerto Rico</option>
+                    <option value="Republic of the Congo">Republic of the Congo</option>
+                    <option value="Russia">Russia</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="Sierra Leone">Sierra Leone</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="South Korea">South Korea</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Switzerland">Switzerland</option>
+                    <option value="Taiwan">Taiwan</option>
+                    <option value="Thailand">Thailand</option>
+                    <option value="Tonga">Tonga</option>
+                    <option value="United Arab Emirates">United Arab Emirates</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="United States">United States</option>
+                    <option value="Uruguay">Uruguay</option>
+                    <option value="Vanuatu">Vanuatu</option>
+                    <option value="Venezuela">Venezuela</option>
+                    <option value="Zimbabwe">Zimbabwe</option>
+                </select>
+            </div>
+            <div>
+                <label for="dedicator_name">Dedicator Name:</label>
+                <select id="dedicator_name" name="dedicator_name">
+                    <option value=""></option>
+                    <option value="Boyd K. Packer">Boyd K. Packer</option>
+                    <option value="Dale G. Renlund">Dale G. Renlund</option>
+                    <option value="Daniel H. Wells">Daniel H. Wells</option>
+                    <option value="David A. Bednar">David A. Bednar</option>
+                    <option value="David O. McKay">David O. McKay</option>
+                    <option value="Dieter F. Uchtdorf">Dieter F. Uchtdorf</option>
+                    <option value="D. Todd Christofferson">D. Todd Christofferson</option>
+                    <option value="Ezra Taft Benson">Ezra Taft Benson</option>
+                    <option value="Gary E. Stevenson">Gary E. Stevenson</option>
+                    <option value="George Albert Smith">George Albert Smith</option>
+                    <option value="Gerrit W. Gong">Gerrit W. Gong</option>
+                    <option value="Gordon B. Hinckley">Gordon B. Hinckley</option>
+                    <option value="Heber J. Grant">Heber J. Grant</option>
+                    <option value="Henry B. Eyring">Henry B. Eyring</option>
+                    <option value="Howard W. Hunter">Howard W. Hunter</option>
+                    <option value="James E. Faust">James E. Faust</option>
+                    <option value="John Taylor">John Taylor</option>
+                    <option value="Joseph Fielding Smith">Joseph Fielding Smith</option>
+                    <option value="Marion G. Romney">Marion G. Romney</option>
+                    <option value="M. Russell Ballard">M. Russell Ballard</option>
+                    <option value="Neil L. Andersen">Neil L. Andersen</option>
+                    <option value="Patrick Kearon">Patrick Kearon</option>
+                    <option value="Quentin L. Cook">Quentin L. Cook</option>
+                    <option value="Ronald A. Rasband">Ronald A. Rasband</option>
+                    <option value="Russell M. Nelson">Russell M. Nelson</option>
+                    <option value="Spencer W. Kimball">Spencer W. Kimball</option>
+                    <option value="Thomas S. Monson">Thomas S. Monson</option>
+                    <option value="Ulisses Soares">Ulisses Soares</option>
+                    <option value="Wilford Woodruff">Wilford Woodruff</option>
+                </select>
+            </div>
+            <div>
+                <label for="prophet_name">Prophet At Dedication:</label>
+                <select id="prophet_name" name="prophet_name">
+                    <option value=""></option>
+                    <option value="Russel M. Nelson">Russel M. Nelson</option>
+                    <option value="Thomas S. Monson">Thomas S. Monson</option>
+                    <option value="Gordon B. Hinckley">Gordon B. Hinckley</option>
+                    <option value="Howard W. Hunter">Howard W. Hunter</option>
+                    <option value="Ezra Taft Benson">Ezra Taft Benson</option>
+                    <option value="Spencer W. Kimball">Spencer W. Kimball</option>
+                    <option value="Harold B. Lee">Harold B. Lee</option>
+                    <option value="Joseph Fielding Smith">Joseph Fielding Smith</option>
+                    <option value="David O. McKay">David O. McKay</option>
+                    <option value="George Albert Smith">George Albert Smith</option>
+                    <option value="Heber J. Grant">Heber J. Grant</option>
+                    <option value="Joseph F. Smith">Joseph F. Smith</option>
+                    <option value="Lorenzo Snow">Lorenzo Snow</option>
+                    <option value="Wilford Woodruff">Wilford Woodruff</option>
+                    <option value="John Taylor">John Taylor</option>
+                    <option value="Brigham Young">Brigham Young</option>
+                    <option value="Joseph Smith Jr.">Joseph Smith Jr.</option>
+                </select>
+            </div>            
+            <div>
+                <label for="attachment_type">Attachment Type:</label>
+                <select id="attachment_type" name="attachment_type">
+                    <option value=""></option>
+                    <option value="attached">Attached</option>
+                    <option value="detached">Detached</option>
+                    <option value="none">None</option>
+                </select>
+            </div>
+            
+            <!-- Date-based filters -->
+            <div>
+                <label for="dedication_date_start">Dedication Date:</label>
+                <input type="date" id="dedication_date_start" name="dedication_date_start">
+                <label for="dedication_date_end"> - </label>
+                <input type="date" id="dedication_date_end" name="dedication_date_end">
+            </div>
+            <div>
+                <label for="announcement_date_start">Announcement Date:</label>
+                <input type="date" id="announcement_date_start" name="announcement_date_start">
+                <label for="announcement_date_end"> - </label>
+                <input type="date" id="announcement_date_end" name="announcement_date_end">
+            </div>
+            <div>
+                <label for="groundbreaking_date_start">Groundbreaking Date:</label>
+                <input type="date" id="groundbreaking_date_start" name="groundbreaking_date_start">
+                <label for="groundbreaking_date_end"> - </label>
+                <input type="date" id="groundbreaking_date_end" name="groundbreaking_date_end">
+            </div>
+            <div>
+                <label for="rededication_date_start">Rededication Date:</label>
+                <input type="date" id="rededication_date_start" name="rededication_date_start">
+                <label for="rededication_date_end"> - </label>
+                <input type="date" id="rededication_date_end" name="rededication_date_end">
+            </div>
+            <div>
+                <label for="second_rededication_date_start">Second Rededication Date:</label>
+                <input type="date" id="second_rededication_date_start" name="second_rededication_date_start">
+                <label for="second_rededication_date_end"> - </label>
+                <input type="date" id="second_rededication_date_end" name="second_rededication_date_end">
+            </div>
+
+            <!-- Boolean filters -->
+            <div>
+                <label for="housing">Housing:</label>
+                <input type="checkbox" id="housing" name="housing">
+            </div>
+            <div>
+                <label for="visitor_center">Visitor Center:</label>
+                <input type="checkbox" id="visitor_center" name="visitor_center">
+            </div>
+            <div>
+                <label for="distribution_center">Distribution Center:</label>
+                <input type="checkbox" id="distribution_center" name="distribution_center">
+            </div>
+            <div>
+                <label for="angel_moroni">Angel Moroni:</label>
+                <input type="checkbox" id="angel_moroni" name="angel_moroni">
+            </div>
+
+            <!-- Numerical filters with min and max -->
+            <div>
+                <label for="instruction_room_count_min">Instruction Rooms:</label>
+                <input type="number" id="instruction_room_count_min" name="instruction_room_count_min">
+                <label for="instruction_room_count_max"> - </label>
+                <input type="number" id="instruction_room_count_max" name="instruction_room_count_max">
+            </div>
+            <div>
+                <label for="sealing_room_count_min">Sealing Rooms:</label>
+                <input type="number" id="sealing_room_count_min" name="sealing_room_count_min">
+                <label for="sealing_room_count_max"> - </label>
+                <input type="number" id="sealing_room_count_max" name="sealing_room_count_max">
+            </div>
+            <div>
+                <label for="font_count_min">Fonts:</label>
+                <input type="number" id="font_count_min" name="font_count_min">
+                <label for="font_count_max"> - </label>
+                <input type="number" id="font_count_max" name="font_count_max">
+            </div>
+            <div>
+                <label for="sq_feet_min">Square Feet:</label>
+                <input type="number" id="sq_feet_min" name="sq_feet_min">
+                <label for="sq_feet_max"> - </label>
+                <input type="number" id="sq_feet_max" name="sq_feet_max">
+            </div>
+            <div>
+                <label for="acreage_min">Acreage:</label>
+                <input type="number" id="acreage_min" name="acreage_min">
+                <label for="acreage_max"> - </label>
+                <input type="number" id="acreage_max" name="acreage_max">
+            </div>
+            <div>
+                <label for="stake_count_min">Stakes</label>
+                <input type="number" id="stake_count_min" name="stake_count_min">
+                <label for="stake_count_max"> - </label>
+                <input type="number" id="stake_count_max" name="stake_count_max">
+            </div>
+            <div>
+                <label for="district_count_min">Districts</label>
+                <input type="number" id="district_count_min" name="district_count_min">
+                <label for="district_count_max"> - </label>
+                <input type="number" id="district_count_max" name="district_count_max">
+            </div>
+            <div>
+                <label for="elevation_feet_min">Elevation (ft):</label>
+                <input type="number" id="elevation_feet_min" name="elevation_feet_min">
+                <label for="elevation_feet_max"> - </label>
+                <input type="number" id="elevation_feet_max" name="elevation_feet_max">
+            </div>
+            <div>
+                <label for="elevation_meters_min">Elevation (m):</label>
+                <input type="number" id="elevation_meters_min" name="elevation_meters_min">
+                <label for="elevation_meters_max"> - </label>
+                <input type="number" id="elevation_meters_max" name="elevation_meters_max">
+            </div>
+            <div>
+                <label for="spire_count_min">Spire Count:</label>
+                <input type="number" id="spire_count_min" name="spire_count_min">
+                <label for="spire_count_max"> - </label>
+                <input type="number" id="spire_count_max" name="spire_count_max">
+            </div>
+            <div style="margin-top: 10px;">
+                <button type="submit">Search</button>
+                <button type="button" onclick="toggleAdvancedSearch()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Temple Name</th>
+            <th>Dedication Status</th>
+            <th>Date Dedicated</th>
+        </tr>
+        </thead>
+        <tbody>
+            <% if (temples.length > 0) { %>
+                <% temples.forEach(row => { %>
+                    <tr>
+                        <td><%= row.temple_name %></td>
+                        <td><%= row.status %></td>
+                        <td><%= new Date(row.dedication_date).toLocaleDateString('en-US') %></td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+            <tr>
+                <td colspan="3">No data available</td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <script>
+        function toggleAdvancedSearch() {
+            const form = document.getElementById('advanced-search');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
