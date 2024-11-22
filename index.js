@@ -6,7 +6,7 @@ let path = require("path");
 
 let security = false;
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.set("view engine", "ejs");
 
@@ -17,11 +17,12 @@ app.use(express.urlencoded({extended: true}));
 const knex = require("knex") ({
     client : "pg",
     connection : {
-        host : "localhost",
-        user : "postgres",
-        password : "Meqn22ps8!",
-        database : "templeproject",
-        port : 5432
+        host : process.env.RDS_HOSTNAME || "localhost",
+        user : process.env.RDS_USERNAME || "postgres",
+        password : process.env.RDS_PASSWORD || "Meqn22ps8!",
+        database : process.env.RDS_DB_NAME || "templeproject",
+        port : process.env.RDS_PORT || 5432,
+        ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
     }
 });
 
